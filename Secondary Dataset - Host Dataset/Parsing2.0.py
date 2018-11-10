@@ -5,7 +5,7 @@ file = "/Users/rakeshravi/Documents/Capstone Project/Secondary Dataset - Host Da
 with open(file, "r") as ins:
     array = []
     for line in ins:
-array.append(line)
+        array.append(line)
         
 print(len(array))
 sample = array[1:1000]
@@ -16,7 +16,7 @@ columnlist = ['Time',
 'LogonType',
 'LogonTypeDescription',
 'UserName',
-'DomainName',
+'DomainName', 
 'LogonID',
 'SubjectUserName',
 'SubjectDomainName',
@@ -32,7 +32,7 @@ columnlist = ['Time',
 'ParentProcessName',
 'ParentProcessID']
 import json
-parsed_df = pd.DataFrame(columns=columnlist)
+parsed= []
 for x in sample:
     str1 = (''.join(str(e) for e in x)).strip("\n")
     d = json.loads(str1)
@@ -43,10 +43,10 @@ for x in sample:
             lis.append(k)
         except KeyError:
             lis.append(0)
-    temp_df = pd.DataFrame([lis], columns = columnlist)
-    print(temp_df)
-    parsed_df = parsed_df.append(temp_df)
+    parsed.append(lis)
 
+
+'''
 test_df = parsed_df.head(10)
 test_df[['EventID']] = test_df[['EventID']].apply(pd.to_numeric)
 parsed_df.to_csv(parsed_sample, sep='\t')
@@ -62,3 +62,4 @@ import pandas as pd
 parsed_df = pd.read_csv('/Users/rakeshravi/Documents/Capstone Project/Secondary Dataset/parsed_sample.csv')
 parsed_df.to_csv('parsed_sample.csv', sep='\t')
 merged_df = pd.merge(test_df, lookup_df, on="EventID")
+'''
